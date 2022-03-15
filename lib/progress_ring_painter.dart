@@ -26,8 +26,11 @@ class ProgressRingPainter extends CustomPainter {
       : super(repaint: progress) {
     Path _path = Path();
     _path.addOval(
-        Rect.fromCenter(center: const Offset(0, 0),
-         width: size.width-strokeW, height: size.height-strokeW));
+      Rect.fromCenter(
+          center: const Offset(0, 0),
+          width: size.width - strokeW,
+          height: size.height - strokeW),
+    );
     pathMetric = _path.computeMetrics().first;
     _paint = Paint()
       ..color = circularRingColor

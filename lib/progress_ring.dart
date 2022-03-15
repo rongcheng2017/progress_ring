@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:progress_ring/progress_ring_painter.dart';
+
+import 'progress_ring_painter.dart';
 
 class ProgressRing extends StatefulWidget {
   final Size size;
@@ -23,7 +24,6 @@ class ProgressRing extends StatefulWidget {
       this.duration = const Duration(seconds: 2),
       this.strokeW = 10,
       this.textStyle,
-      // this.textDecoration= TextDecoration()
       this.circularRingColor = Colors.black38,
       this.progressColor = Colors.pinkAccent})
       : super(key: key);
@@ -40,10 +40,13 @@ class _ProgressRingState extends State<ProgressRing>
   void initState() {
     super.initState();
     controller = AnimationController(
-      value: widget.value,
+      lowerBound: 0.00,
+      upperBound: widget.value,
       vsync: this,
       duration: widget.duration,
     );
+    CurvedAnimation(parent: controller, curve: Curves.bounceIn);
+    controller.forward();
   }
 
   @override

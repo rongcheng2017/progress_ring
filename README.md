@@ -15,11 +15,19 @@ and the Flutter guide for
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+![WX20220315-191757.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/393cc5c78c3b4b67a3cc4fd0550722f4~tplv-k3u1fbpfcp-watermark.image?)
+
 
 ## Getting started
 
-![WX20220315-191757.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/393cc5c78c3b4b67a3cc4fd0550722f4~tplv-k3u1fbpfcp-watermark.image?)
+```dart
+dependencies:
+  flutter:
+    sdk: flutter
+
+ //添加依赖
+  progress_ring: ^0.0.3  
+```
 
 ## Usage
 
