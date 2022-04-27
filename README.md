@@ -87,6 +87,7 @@ class _ProgressRingPageState extends State<ProgressRingPage> {
           progressColor:Color(0xFF1678FF),
 			//百分比文案样式
           textStyle:  TextStyle(color: Color(0xFF111A34),fontSize: 16),
+      //progerssController: _progressController,
         ),
       ),
     );

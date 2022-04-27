@@ -17,8 +17,10 @@ class ProgressRingPainter extends CustomPainter {
 
   final Size size;
 
+  final StrokeCap strokeCap;
   ProgressRingPainter(
       {required this.progress,
+      this.strokeCap = StrokeCap.butt,
       this.circularRingColor = Colors.black38,
       this.progressColor = Colors.pinkAccent,
       required this.size,
@@ -36,6 +38,7 @@ class ProgressRingPainter extends CustomPainter {
       ..color = circularRingColor
       ..strokeWidth = strokeW
       ..style = PaintingStyle.stroke;
+  
   }
 
   @override
@@ -50,7 +53,7 @@ class ProgressRingPainter extends CustomPainter {
         pathMetric.extractPath(0, pathMetric.length * progress.value),
         Paint()
           ..color = progressColor
-          ..strokeCap = StrokeCap.round
+          ..strokeCap = strokeCap
           ..strokeWidth = strokeW
           ..style = PaintingStyle.stroke);
   }

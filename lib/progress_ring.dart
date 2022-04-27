@@ -15,6 +15,12 @@ class ProgressRing extends StatefulWidget {
   final Color progressColor;
 
   final TextStyle? textStyle;
+  //替换百分比 自定义显示文案
+  final Text? text;
+  //进度条StrokeCap类型 默认是round.当value<=0 改为butt
+  final StrokeCap? strokeCap;
+
+  final ProgressController? progerssController;
 
   // final TextDecoration textDecoration;
   const ProgressRing(
@@ -24,6 +30,9 @@ class ProgressRing extends StatefulWidget {
       this.duration = const Duration(seconds: 2),
       this.strokeW = 10,
       this.textStyle,
+      this.strokeCap,
+      this.text,
+      this.progerssController,
       this.circularRingColor = Colors.black38,
       this.progressColor = Colors.pinkAccent})
       : super(key: key);
@@ -40,13 +49,12 @@ class _ProgressRingState extends State<ProgressRing>
   void initState() {
     super.initState();
     controller = AnimationController(
-      lowerBound: 0.00,
-      upperBound: widget.value,
       vsync: this,
       duration: widget.duration,
     );
     CurvedAnimation(parent: controller, curve: Curves.bounceIn);
-    controller.forward();
+    if (widget.value > 0) controller.animateTo(widget.value);
+    widget.progerssController?.setAnimationController(controller);
   }
 
   @override
@@ -59,7 +67,9 @@ class _ProgressRingState extends State<ProgressRing>
         child: Center(
           child: ValueListenableBuilder(
             valueListenable: controller,
-            builder: buildText,
+            builder: (BuildContext context, double value, Widget? child) {
+              return buildText(context, value, widget.text);
+            },
           ),
         ),
       ),
@@ -68,20 +78,36 @@ class _ProgressRingState extends State<ProgressRing>
           progress: controller,
           circularRingColor: widget.circularRingColor,
           progressColor: widget.progressColor,
+          strokeCap: widget.value <= 0
+              ? StrokeCap.butt
+              : widget.strokeCap ?? StrokeCap.round,
           strokeW: widget.strokeW),
     );
   }
 
   Widget buildText(BuildContext context, double value, Widget? child) {
-    return Text(
-      "${(value * 100).toInt()}%",
-      style: widget.textStyle,
-    );
+    return child ??
+        Text(
+          "${(value * 100).toInt()}%",
+          style: widget.textStyle,
+        );
   }
 
   @override
   void dispose() {
     controller.dispose();
     super.dispose();
+  }
+}
+
+class ProgressController {
+  AnimationController? animationController;
+
+  setAnimationController(AnimationController controller) {
+    animationController = controller;
+  }
+
+  update(double value) {
+    animationController?.animateTo(value);
   }
 }

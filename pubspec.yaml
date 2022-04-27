@@ -1,6 +1,6 @@
 name: progress_ring
 description: A Flutter package  For Progress Ring.
-version: 0.0.3
+version: 1.0.0
 homepage: https://github.com/rongcheng2017/progress_ring
 
 environment:
